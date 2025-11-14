@@ -580,12 +580,16 @@
 	if(L.stamina >= L.max_stamina)
 		return FALSE
 	if(L)
+		var/base_spd = min(L.STASPD, 15)		// We take base speed up to 15 at full value
+		var/bonus_spd = max(L.STASPD - 15, 0)	// Anything above 15 is bonus speed at reduced value
 		if(H?.check_dodge_skill())
-			prob2defend = prob2defend + (min(L.STASPD, 15) * 12)
+			prob2defend = prob2defend + (base_spd * 12) + (bonus_spd * 6)
 		else
-			prob2defend = prob2defend + (min(L.STASPD, 15) * 10)
+			prob2defend = prob2defend + (base_spd * 10) + (bonus_spd * 5)
 	if(U)
-		prob2defend = prob2defend - (min(U.STASPD, 15) * 10)
+		var/base_spd = min(U.STASPD, 15)
+		var/bonus_spd = max(U.STASPD - 15, 0)
+		prob2defend = prob2defend - (base_spd * 10) - (bonus_spd * 5)
 	if(I)
 		if(I.wbalance == WBALANCE_SWIFT && U.STASPD > L.STASPD) //nme weapon is quick, so they get a bonus based on spddiff
 			prob2defend = prob2defend - ( I.wbalance * ((U.STASPD - L.STASPD) * 10) )
@@ -700,6 +704,17 @@
 	dodgecd = TRUE
 	playsound(src, 'sound/combat/dodge.ogg', 100, FALSE)
 	throw_at(turfy, 1, 2, src, FALSE)
+	
+	// Check off-balance and landing effects for humans
+	if(H)
+		if(H.IsOffBalanced())
+			H.Knockdown(1)
+			to_chat(H, span_danger("I tried to dodge off-balance!"))
+	if(isturf(loc))
+		var/turf/T = loc
+		if(T.landsound)
+			playsound(T, T.landsound, 100, FALSE)
+	
 	if(drained > 0)
 		src.visible_message(span_warning("<b>[src]</b> dodges [user]'s attack!"))
 	else
@@ -727,14 +742,6 @@
 			user.visible_message(span_warning("<b>[user]</b> clips [src]'s weapon!"))
 			playsound(user, 'sound/misc/weapon_clip.ogg', 100)
 	dodgecd = FALSE
-//		if(H)
-//			if(H.IsOffBalanced())
-//				H.Knockdown(1)
-//				to_chat(H, span_danger("I tried to dodge off-balance!"))
-//		if(isturf(loc))
-//			var/turf/T = loc
-//			if(T.landsound)
-//				playsound(T, T.landsound, 100, FALSE)
 	return TRUE
 
 /mob/proc/food_tempted(/obj/item/W, mob/user)
