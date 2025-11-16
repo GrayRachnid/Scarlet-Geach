@@ -16,7 +16,7 @@
 		TRAIT_DECEIVING_MEEKNESS
 	)
 	subclass_stats = list(
-		STATKEY_INT = 2,
+		STATKEY_INT = 3,
 		STATKEY_SPD = 3,
 		STATKEY_LCK = 3,
 		STATKEY_CON = 1,
