@@ -88,6 +88,8 @@
 
 	var/list/peopleiknow = list()
 	var/list/peopleknowme = list()
+	/// Jobs that EVERYONE should know, regardless of give_bank_account (nobles)
+	var/static/list/universal_known_jobs = list()
 
 	var/plevel_req = 0
 	var/min_pq = 0
@@ -185,6 +187,40 @@
 
 //Only override this proc
 //H is usually a human unless an /equip override transformed it
+/// Populates known_people lists after equipment is complete
+/datum/job/proc/populate_job_knowledge(mob/living/carbon/human/H, latejoin)
+	if(!H || !H.mind)
+		return
+	
+	// Everyone knows universal jobs (nobles for now)
+	for(var/X in universal_known_jobs)
+		for(var/datum/mind/MF in get_minds(X))
+			if(MF.current && ishuman(MF.current))
+				H.mind.i_know_person(MF.current)
+	
+	// Mutual knowledge system (only for jobs with bank accounts)
+	if(!give_bank_account)
+		return
+	
+	for(var/X in peopleknowme)
+		for(var/datum/mind/MF in get_minds(X))
+			// Only add ourselves to their list if they also have give_bank_account
+			// This prevents Bandits/Wretches from learning about latejoiners
+			if(MF.current && ishuman(MF.current))
+				var/mob/living/carbon/human/target = MF.current
+				var/datum/job/target_job = SSjob.GetJob(target.job)
+				if(target_job?.give_bank_account)
+					H.mind.person_knows_me(MF)
+	for(var/X in peopleiknow)
+		for(var/datum/mind/MF in get_minds(X))
+			// Only add them to our list if they also have give_bank_account
+			// This prevents knowing Bandits/Mercenaries who don't participate in the system
+			if(MF.current && ishuman(MF.current))
+				var/mob/living/carbon/human/target = MF.current
+				var/datum/job/target_job = SSjob.GetJob(target.job)
+				if(target_job?.give_bank_account)
+					H.mind.i_know_person(MF)
+
 /datum/job/proc/after_spawn(mob/living/H, mob/M, latejoin = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src)
@@ -204,12 +240,11 @@
 		for(var/stat in job_stats)
 			H.change_stat(stat, job_stats[stat])
 
-	for(var/X in peopleknowme)
-		for(var/datum/mind/MF in get_minds(X))
-			H.mind.person_knows_me(MF)
-	for(var/X in peopleiknow)
-		for(var/datum/mind/MF in get_minds(X))
-			H.mind.i_know_person(MF)
+	// Register signal handler to populate knowledge AFTER equipment is complete
+	// This fires for both roundstart via ticker calling InitializeRoundstartKnowledge
+	// and latejoin via COMSIG_JOB_EQUIPPED signal
+	if(latejoin)
+		RegisterSignal(H, COMSIG_JOB_EQUIPPED, PROC_REF(populate_job_knowledge))
 
 	if(H.islatejoin && announce_latejoin)
 		var/used_title = title

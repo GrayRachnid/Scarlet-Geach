@@ -133,6 +133,10 @@ SUBSYSTEM_DEF(role_class_handler)
 	var/atom/movable/screen/advsetup/GET_IT_OUT = locate() in H.hud_used.static_inventory // dis line sux its basically a loop anyways if i remember
 	qdel(GET_IT_OUT)
 	H.cure_blind("advsetup")
+	
+	// Send signal that advclass equipment is complete and knowledge can be populated
+	// This ensures advjob is set before knowledge population happens
+	SEND_SIGNAL(H, COMSIG_JOB_EQUIPPED, H.islatejoin)
 
 	//If we get any plus factor at all, we run the datums boost proc on the human also.
 	if(plus_factor)

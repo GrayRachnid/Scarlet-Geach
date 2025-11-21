@@ -342,6 +342,9 @@ SUBSYSTEM_DEF(ticker)
 		transfer_characters()	//transfer keys to the new mobs
 		log_game("GAME SETUP: transfer characters success")
 
+		// Initialize known_people lists for all roundstart players
+		SSjob.InitializeRoundstartKnowledge()
+		log_game("GAME SETUP: initialize roundstart knowledge success")
 
 
 	for(var/I in round_start_events)

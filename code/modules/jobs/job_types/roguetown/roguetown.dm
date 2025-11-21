@@ -3,6 +3,10 @@
 
 /datum/job/roguetown/New()
 	. = ..()
+	// Universal knowledge: Everyone knows nobles
+	if(!length(universal_known_jobs))
+		for(var/X in GLOB.noble_positions)
+			universal_known_jobs += X
 	if(give_bank_account)
 		for(var/X in GLOB.peasant_positions)
 			peopleiknow += X

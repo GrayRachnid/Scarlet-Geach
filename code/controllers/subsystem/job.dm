@@ -729,6 +729,10 @@ SUBSYSTEM_DEF(job)
 //		H.add_memory("Your account ID is [wageslave.account_id].")
 	if(job && H)
 		job.after_spawn(H, M, joined_late) // note: this happens before the mob has a key! M will always have a client, H might not.
+		// Send signal that equipment is complete and knowledge can be populated
+		// For jobs with advclasses, this signal is sent from finish_class_handler() instead
+		if(!job.job_subclasses || !length(job.job_subclasses))
+			SEND_SIGNAL(H, COMSIG_JOB_EQUIPPED, joined_late)
 
 	return H
 
@@ -909,3 +913,34 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/JobDebug(message)
 	log_job_debug(message)
+
+/// Initialize known_people lists for all roundstart players after all jobs are assigned
+/datum/controller/subsystem/job/proc/InitializeRoundstartKnowledge()
+	for(var/datum/mind/M in SSticker.minds)
+		if(!M.current || !ishuman(M.current))
+			continue
+		
+		var/mob/living/carbon/human/H = M.current
+		var/datum/job/my_job = GetJob(H.job)
+		if(!my_job)
+			continue
+		
+	// Everyone knows universal jobs (nobles for now)
+	for(var/job_title in my_job.universal_known_jobs)
+		for(var/datum/mind/other_mind in get_minds(job_title))
+			if(other_mind.current && ishuman(other_mind.current))
+				var/mob/living/carbon/human/other = other_mind.current
+				M.i_know_person(other)
+	
+	// Mutual knowledge system (only for jobs with bank accounts)
+	if(!my_job.give_bank_account)
+		continue
+	
+	for(var/job_title in my_job.peopleiknow)
+		for(var/datum/mind/other_mind in get_minds(job_title))
+			if(other_mind.current && ishuman(other_mind.current))
+				var/mob/living/carbon/human/other = other_mind.current
+				var/datum/job/other_job = GetJob(other.job)
+				// Only add if the other person also has give_bank_account
+				if(other_job?.give_bank_account)
+					M.i_know_person(other)
