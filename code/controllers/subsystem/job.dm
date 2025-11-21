@@ -925,22 +925,22 @@ SUBSYSTEM_DEF(job)
 		if(!my_job)
 			continue
 		
-	// Everyone knows universal jobs (nobles for now)
-	for(var/job_title in my_job.universal_known_jobs)
-		for(var/datum/mind/other_mind in get_minds(job_title))
-			if(other_mind.current && ishuman(other_mind.current))
-				var/mob/living/carbon/human/other = other_mind.current
-				M.i_know_person(other)
-	
-	// Mutual knowledge system (only for jobs with bank accounts)
-	if(!my_job.give_bank_account)
-		continue
-	
-	for(var/job_title in my_job.peopleiknow)
-		for(var/datum/mind/other_mind in get_minds(job_title))
-			if(other_mind.current && ishuman(other_mind.current))
-				var/mob/living/carbon/human/other = other_mind.current
-				var/datum/job/other_job = GetJob(other.job)
-				// Only add if the other person also has give_bank_account
-				if(other_job?.give_bank_account)
+		// Everyone knows universal jobs (nobles for now)
+		for(var/job_title in my_job.universal_known_jobs)
+			for(var/datum/mind/other_mind in get_minds(job_title))
+				if(other_mind.current && ishuman(other_mind.current))
+					var/mob/living/carbon/human/other = other_mind.current
 					M.i_know_person(other)
+		
+		// Mutual knowledge system (only for jobs with bank accounts)
+		if(!my_job.give_bank_account)
+			continue
+		
+		for(var/job_title in my_job.peopleiknow)
+			for(var/datum/mind/other_mind in get_minds(job_title))
+				if(other_mind.current && ishuman(other_mind.current))
+					var/mob/living/carbon/human/other = other_mind.current
+					var/datum/job/other_job = GetJob(other.job)
+					// Only add if the other person also has give_bank_account
+					if(other_job?.give_bank_account)
+						M.i_know_person(other)
