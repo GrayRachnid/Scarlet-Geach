@@ -61,7 +61,7 @@
 	name = "Crate of Lesser Health Potions"
 	desc = "Red that MIGHT keep men alive, on a budget."
 	item_type = /obj/structure/closet/crate/chest/steward/redpotionweak
-	export_price = 50
+	export_price = 75
 	importexport_amt = 1
 
 /obj/structure/closet/crate/chest/steward/redpotionweak/Initialize()
@@ -76,7 +76,7 @@
 	name = "Crate of Health Potions"
 	desc = "Red that keeps men alive."
 	item_type = /obj/structure/closet/crate/chest/steward/redpotion
-	export_price = 100
+	export_price = 225
 	importexport_amt = 1
 
 /obj/structure/closet/crate/chest/steward/redpotion/Initialize()
