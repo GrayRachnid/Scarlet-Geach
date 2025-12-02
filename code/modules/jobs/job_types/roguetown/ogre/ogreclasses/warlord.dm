@@ -25,6 +25,8 @@
 		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 	) //trust me this'll be fine - they'll only have a cuirass and a hauberk for armor i swear
 
+	spells = list(/obj/effect/proc_holder/spell/self/convertrole/warlord)
+
 /datum/outfit/job/roguetown/ogre/warlord/pre_equip(mob/living/carbon/human/H)
 	..()
 	if(H.mind)
