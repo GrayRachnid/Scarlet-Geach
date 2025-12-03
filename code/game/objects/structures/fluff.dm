@@ -1036,7 +1036,7 @@
 		/obj/item/rogueweapon/halberd/psyhalberd, // relic weapons but not standard Inquisition stuff 
 		/obj/item/rogueweapon/greatsword/psygsword,
 		/obj/item/clothing/head/roguetown/circlet,
-		/obj/rogueitem/carvedgem,  //Some of these aren't particularly worth much, but it'd be REALLY unintuitive for "valuables" to not actually be offerings
+		/obj/item/carvedgem,  //Some of these aren't particularly worth much, but it'd be REALLY unintuitive for "valuables" to not actually be offerings
 		/obj/item/rogueweapon/huntingknife/stoneknife/kukri,
 		/obj/item/weapon/knife/stone/opal,
 		/obj/item/clothing/face/carved,
