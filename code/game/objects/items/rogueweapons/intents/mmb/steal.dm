@@ -114,7 +114,10 @@
 				else
 					target_human.log_message("has had an attempted pickpocket by [key_name(user_human)]", LOG_ATTACK, color="white")
 					user_human.log_message("has attempted to pickpocket [key_name(target_human)]", LOG_ATTACK, color="white")
-					to_chat(user, span_danger("I failed to pick the pocket! [chance2steal]%!"))
+					if(HAS_TRAIT(user, TRAIT_CULTIC_THIEF))
+						to_chat(user, span_danger("I failed to pick the pocket! [1 - ((1 - chance2steal) * (1 - chance2steal))]%!"))
+					else
+						to_chat(user, span_danger("I failed to pick the pocket! [chance2steal]%!"))
 					to_chat(target_human, span_danger("Someone tried pickpocketing me!"))
 				exp_to_gain /= 5 // these can be removed or changed on reviewer's discretion
 			// If we're pickpocketing someone else, and that person is conscious, grant XP
