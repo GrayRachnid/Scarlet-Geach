@@ -15,10 +15,6 @@
 /mob/living/carbon/human/species/wildshape/dendormole/gain_inherent_skills()
 	. = ..()
 	if(src.mind)
-		// Set name from species datum with real name in parentheses
-		var/datum/species/S = race
-		if(S && src.real_name)
-			name = "[S.name] ([src.real_name])"
 		src.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE) //We don't want this thing wrestling people.
 		src.adjust_skillrank(/datum/skill/combat/unarmed, 4, TRUE)
 		src.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
@@ -33,6 +29,7 @@
 		src.STASPD = 13
 
 		AddSpell(new /obj/effect/proc_holder/spell/self/moleclaw)
+		real_name = "Moss Crawler ([stored_mob.real_name])" //Preserve original character name
 
 
 // dendormole SPECIES DATUM //

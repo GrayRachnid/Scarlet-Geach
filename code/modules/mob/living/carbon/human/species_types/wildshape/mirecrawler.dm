@@ -11,10 +11,6 @@
 /mob/living/carbon/human/species/wildshape/mirecrawler/gain_inherent_skills()
 	. = ..()
 	if(src.mind)
-		// Set name from species datum with real name in parentheses
-		var/datum/species/S = race
-		if(S && src.real_name)
-			name = "[S.name] ([src.real_name])"
 		src.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
 		src.adjust_skillrank(/datum/skill/combat/unarmed, 3, TRUE)
 		src.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
@@ -31,6 +27,7 @@
 		update_move_intent_slowdown() // Apply speed changes
 
 		AddSpell(new /obj/effect/proc_holder/spell/self/spiderfangs/mire)
+		real_name = "Lesser Mire Crawler ([stored_mob.real_name])" //Preserve original character name
 
 
 // mirecrawler SPECIES DATUM //

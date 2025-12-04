@@ -21,7 +21,13 @@
 	var/mob/living/carbon/human/H = user
 	if(!H.mind)
 		return
-	// Transform using wildshape system
+	
+	// If already in dendormole form, revert back to human
+	if(istype(H, /mob/living/carbon/human/species/wildshape/dendormole))
+		H.wildshape_untransform()
+		return TRUE
+	
+	// Otherwise transform into dendormole
 	H.wildshape_transformation(/mob/living/carbon/human/species/wildshape/dendormole)
 	return TRUE
 
@@ -48,6 +54,12 @@
 	var/mob/living/carbon/human/H = user
 	if(!H.mind)
 		return
-	// Transform using wildshape system
+	
+	// If already in mirecrawler form, revert back to human
+	if(istype(H, /mob/living/carbon/human/species/wildshape/mirecrawler))
+		H.wildshape_untransform()
+		return TRUE
+	
+	// Otherwise transform into mirecrawler
 	H.wildshape_transformation(/mob/living/carbon/human/species/wildshape/mirecrawler)
 	return TRUE
