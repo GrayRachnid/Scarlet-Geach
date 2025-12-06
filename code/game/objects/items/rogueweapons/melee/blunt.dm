@@ -222,7 +222,7 @@
 	grid_width = 32
 	grid_height = 96
 
-/obj/item/weapon/mace/cudgel/shellrungu
+/obj/item/rogueweapon/mace/cudgel/shellrungu
 	name = "shell rungu"
 	desc = "A ceremonial rungu carved out of clam shell. Not intended for combat. Its used in various Sea and Coastal Elven rituals and ceremonies."
 	icon = 'icons/roguetown/gems/gem_shell.dmi'
