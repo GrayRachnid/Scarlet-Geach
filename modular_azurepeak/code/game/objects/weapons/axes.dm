@@ -4,7 +4,7 @@
 	name = "otherworldly axe"
 	desc = "A strange axe, who knows where it came from. It feels cold and unusually heavy."
 	icon_state = "dreamaxe"
-	minstr = 13
+	minstr = 26
 	max_blade_int = 250
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/gold

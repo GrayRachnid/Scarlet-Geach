@@ -273,7 +273,6 @@
 	minstr = 6
 	wdefense = 5
 	gripped_intents = null
-	minstr = 4
 	wdefense = 4
 	wbalance = WBALANCE_SWIFT
 	wlength = WLENGTH_SHORT

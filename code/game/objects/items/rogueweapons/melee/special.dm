@@ -479,7 +479,7 @@
 	gripped_intents = list(/datum/intent/rend/reach, /datum/intent/axe/chop/battle/greataxe, /datum/intent/sword/peel/big, SPEAR_BASH)
 	force = 15
 	force_wielded = 25
-	minstr = 10
+	minstr = 20
 	max_blade_int = 130
 	anvilrepair = /datum/skill/craft/carpentry
 	smeltresult = /obj/item/rogueore/coal
@@ -496,7 +496,7 @@
 	desc = "Pitchforks and hoes traditionally till the soil. In tymes of peril, however, it isn't uncommon for a militiaman to pound them into polearms."
 	icon_state = "peasantwarspear"
 	icon = 'icons/roguetown/weapons/64.dmi'
-	minstr = 8
+	minstr = 10
 	max_blade_int = 120
 	max_integrity = 200
 	anvilrepair = /datum/skill/craft/carpentry

@@ -292,7 +292,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	equip_delay_self = 2.5 SECONDS
 	unequip_delay_self = 2.5 SECONDS
-	minstr = 8
+	minstr = 10
 	max_blade_int = 180
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/iron
@@ -692,7 +692,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	equip_delay_self = 2.5 SECONDS
 	unequip_delay_self = 2.5 SECONDS
-	minstr = 9
+	minstr = 18
 	max_blade_int = 200
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/steel
@@ -783,7 +783,7 @@
 	icon_state = "silverhalberd"
 	force = 10
 	force_wielded = 25
-	minstr = 11
+	minstr = 22
 	wdefense = 7
 	is_silver = TRUE
 	smeltresult = /obj/item/ingot/silver
@@ -842,7 +842,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	equip_delay_self = 2.5 SECONDS
 	unequip_delay_self = 2.5 SECONDS
-	minstr = 11
+	minstr = 22
 	smeltresult = /obj/item/ingot/steel
 	associated_skill = /datum/skill/combat/polearms
 	max_blade_int = 180
@@ -930,7 +930,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	equip_delay_self = 2.5 SECONDS
 	unequip_delay_self = 2.5 SECONDS
-	minstr = 9
+	minstr = 18
 	smeltresult = /obj/item/ingot/steel
 	associated_skill = /datum/skill/combat/swords
 	max_blade_int = 200
@@ -1027,7 +1027,7 @@
 	icon_state = "silverexealt"
 	force = 8
 	force_wielded = 25
-	minstr = 11
+	minstr = 22
 	wdefense = 6
 	is_silver = TRUE
 	smeltresult = /obj/item/ingot/silver
@@ -1161,7 +1161,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	equip_delay_self = 2.5 SECONDS
 	unequip_delay_self = 2.5 SECONDS
-	minstr = 8
+	minstr = 16
 	smeltresult = /obj/item/ingot/steel
 	associated_skill = /datum/skill/combat/swords
 	max_blade_int = 300
@@ -1309,7 +1309,7 @@
 	gripped_intents = list(SPEAR_THRUST, PARTIZAN_REND, PARTIZAN_PEEL)
 	icon_state = "partizan"
 	icon = 'icons/roguetown/weapons/64.dmi'
-	minstr = 10
+	minstr = 20
 	max_blade_int = 200
 	wdefense = 6
 	throwforce = 12	//Not a throwing weapon. Too heavy!
@@ -1371,7 +1371,7 @@
 	icon_state = "naginata"
 	icon = 'icons/roguetown/weapons/64.dmi'
 	wbalance = WBALANCE_SWIFT
-	minstr = 7
+	minstr = 14
 	max_blade_int = 150 //Nippon suteeru (passable)
 	wdefense = 5
 	throwforce = 12	//Not a throwing weapon.
@@ -1416,7 +1416,7 @@
 	name = "Better Sword"
 	desc = "The mind of an ogre does not see trash in a field of discarded swords and corpses. He sees material to make a new weapon, with a light snack.."
 	icon_state = "ogre_sword"
-	minstr = 15 //have you seen the size of this thing??
+	minstr = 30 //have you seen the size of this thing??
 	smelt_bar_num = 2
 	force = 20
 	force_wielded = 35
@@ -1434,7 +1434,7 @@
 	gripped_intents = list(/datum/intent/mace/strike/reach, /datum/intent/mace/smash/reach, /datum/intent/effect/daze)
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
-	minstr = 15
+	minstr = 30
 	force_wielded = 35
 	max_integrity = 260
 
@@ -1446,7 +1446,7 @@
 	force_wielded = 50 // i dont even think thisll do much, compare it to the tetsubo
 	gripped_intents = list(/datum/intent/mace/strike/reach, /datum/intent/mace/smash/reach, /datum/intent/mace/rangedthrust, /datum/intent/effect/daze)
 	smelt_bar_num = 2
-	minstr = 15
+	minstr = 30
 	force_wielded = 35
 	max_blade_int = 250
 	max_integrity = 280

@@ -185,7 +185,7 @@
 	gripsprite = TRUE
 	smeltresult = /obj/item/ingot/steel
 	gripped_intents = list(/datum/intent/axe/cut/battle ,/datum/intent/axe/chop/battle, /datum/intent/axe/bash)
-	minstr = 12
+	minstr = 24
 	wdefense = 5
 
 /obj/item/rogueweapon/stoneaxe/oath/getonmobprop(tag)
@@ -468,7 +468,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	equip_delay_self = 2.5 SECONDS
 	unequip_delay_self = 2.5 SECONDS
-	minstr = 11
+	minstr = 22
 	max_blade_int = 200
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/iron
@@ -502,7 +502,7 @@
 	desc = "A steel great axe, a long-handled axe with a single blade made for ruining someone's day beyond any measure.."
 	icon_state = "sgreataxe"
 	icon = 'icons/roguetown/weapons/64.dmi'
-	minstr = 11
+	minstr = 22
 	max_blade_int = 250
 	smeltresult = /obj/item/ingot/steel
 
@@ -515,7 +515,7 @@
 	desc = "A steel great axe with a wicked double-bladed head. Perfect for cutting either men or trees into stumps.."
 	icon_state = "doublegreataxe"
 	icon = 'icons/roguetown/weapons/64.dmi'
-	minstr = 12
+	minstr = 24
 	max_blade_int = 200
 
 /obj/item/rogueweapon/greataxe/steel/doublehead/graggar
@@ -564,7 +564,7 @@
 	icon_state = "minotaurgreataxe"
 	force = 20							//Same as Graggar axe, only cus it's rare enough. Plus has the high strength req and crap starting-shaft.
 	force_wielded = 40
-	minstr = 15							//Boo-womp
+	minstr = 30							//Boo-womp
 	max_blade_int = 175
 
 /obj/item/rogueweapon/stoneaxe/woodcut/troll
@@ -575,7 +575,7 @@
 	force_wielded = 30					//Basically a slight better steel cutting axe.
 	max_integrity = 150					//50% less than normal axe
 	max_blade_int = 300
-	minstr = 13							//Heavy, but still good.
+	minstr = 26							//Heavy, but still good.
 	wdefense = 3						//Slightly better than norm, has 6 defense 2 handing it.
 	item_flags = NONE
 

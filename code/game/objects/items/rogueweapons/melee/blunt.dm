@@ -395,7 +395,7 @@
 	associated_skill = /datum/skill/combat/maces
 	smeltresult = /obj/item/ash
 	swingsound = BLUNTWOOSH_MED
-	minstr = 10
+	minstr = 20
 	wdefense = 3
 	pixel_y = -16
 	pixel_x = -16
@@ -450,7 +450,7 @@
 	force = 15
 	force_wielded = 35
 	gripped_intents = list(/datum/intent/mace/strike, /datum/intent/mace/smash/reach, /datum/intent/mace/rangedthrust, /datum/intent/effect/daze)
-	minstr = 11
+	minstr = 22
 	max_integrity = 900
 	smeltresult = /obj/item/ingot/steelholy
 	smelt_bar_num = 2
@@ -471,7 +471,7 @@
 	gripped_intents = list(/datum/intent/mace/strike/reach, /datum/intent/mace/smash/reach, /datum/intent/effect/daze)
 	sharpness = IS_SHARP
 	icon = 'icons/roguetown/weapons/64.dmi'
-	minstr = 15
+	minstr = 30
 	slot_flags = ITEM_SLOT_BACK
 
 /obj/item/rogueweapon/mace/goden/psymace
