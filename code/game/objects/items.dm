@@ -447,7 +447,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return
 		var/list/inspec = list(span_notice("Properties of [src.name]"))
 		if(minstr)
-			inspec += "\n<b>MIN.STR:</b> [minstr]"
+			if(gripped_intents)
+				// Wieldable weapon - show both requirements
+				var/wielded_req = max(round(minstr / 2), 1)
+				inspec += "\n<b>MIN.STR:</b> [minstr] (1H) / [wielded_req] (2H)"
+			else
+				// Non-wieldable weapon - show single requirement
+				inspec += "\n<b>MIN.STR:</b> [minstr]"
 
 		if(force)
 			inspec += "\n<b>FORCE:</b> [get_force_string(force)]"
