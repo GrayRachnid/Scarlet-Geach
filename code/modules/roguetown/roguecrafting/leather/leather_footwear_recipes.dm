@@ -49,5 +49,34 @@
 /datum/crafting_recipe/roguetown/leather/footwear/boots/noble
 	name = "noble boots"
 	result = /obj/item/clothing/shoes/roguetown/boots/nobleboot
-	reqs = list(/obj/item/natural/hide/cured = 3,
+	reqs = list(/obj/item/natural/hide/cured = 2)
+
+// Heels
+/datum/crafting_recipe/roguetown/leather/footwear/heels
+	name = "heels"
+	result = /obj/item/clothing/shoes/roguetown/heels/greyscale
+	reqs = list(/obj/item/natural/hide/cured = 4,
+				/obj/item/natural/silk = 2,
+				/obj/item/reagent_containers/food/snacks/tallow = 1)
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/leather/footwear/heels_leather
+	name = "leather heel boots"
+	result = /obj/item/clothing/shoes/roguetown/heels/leather
+	reqs = list(/obj/item/natural/hide/cured = 1)
+	sellprice = 27
+
+/datum/crafting_recipe/roguetown/leather/footwear/heels_leather_reinforced
+	name = "hardened leather heel boots"
+	result = /obj/item/clothing/shoes/roguetown/heels/leather/reinforced
+	reqs = list(/obj/item/natural/hide/cured = 1,
 				/obj/item/natural/fur = 1)
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/leather/footwear/heels_black
+	name = "black heel boots"
+	result = /obj/item/clothing/shoes/roguetown/heels/black
+	reqs = list(/obj/item/natural/hide/cured = 6,
+				/obj/item/natural/cloth = 2,
+				/obj/item/reagent_containers/food/snacks/tallow = 2)
+	craftdiff = 4

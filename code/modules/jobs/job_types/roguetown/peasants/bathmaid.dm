@@ -212,7 +212,7 @@
 		armor = /obj/item/clothing/suit/roguetown/shirt/dress/silkydress/random
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/corset
 		belt = /obj/item/storage/belt/rogue/leather/cloth/lady
-		shoes = /obj/item/clothing/shoes/roguetown/anklets
+		shoes = /obj/item/clothing/shoes/roguetown/heels/gaudy
 	else
 		shirt = /obj/item/clothing/suit/roguetown/shirt/tunic/random
 		pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/otavan

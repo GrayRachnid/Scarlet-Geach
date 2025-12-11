@@ -41,7 +41,7 @@
 		shirt = /obj/item/clothing/suit/roguetown/shirt/shortshirt
 		backr = /obj/item/storage/backpack/rogue/satchel
 		id = /obj/item/clothing/ring/signet
-		shoes = /obj/item/clothing/shoes/roguetown/shortboots
+		shoes = /obj/item/clothing/shoes/roguetown/heels/leather
 	else if(should_wear_masc_clothes(H))
 		head = /obj/item/clothing/head/roguetown/nyle/consortcrown
 		pants = /obj/item/clothing/under/roguetown/tights
@@ -109,7 +109,6 @@
 	pants = /obj/item/clothing/under/roguetown/tights/black
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/lord
-	shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
 	belt = /obj/item/storage/belt/rogue/leather/black
 	neck = /obj/item/roguekey/manor
 	beltl = /obj/item/rogueweapon/huntingknife/idagger/steel
@@ -118,6 +117,9 @@
 	id = /obj/item/clothing/ring/silver
 	if(should_wear_femme_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/armor/armordress/winterdress
+		shoes = /obj/item/clothing/shoes/roguetown/heels/greyscale
+	else
+		shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
 	if(should_wear_masc_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/armor/longcoat
 	backpack_contents = list(/obj/item/reagent_containers/glass/bottle/rogue/poison = 1, /obj/item/lockpick = 1)
@@ -158,7 +160,10 @@
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
 	armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/otavan
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail
-	shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
+	if(should_wear_femme_clothes(H))
+		shoes = /obj/item/clothing/shoes/roguetown/heels/black
+	else
+		shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
 	belt = /obj/item/storage/belt/rogue/leather
 	neck = /obj/item/roguekey/manor
 	beltl = /obj/item/flashlight/flare/torch/lantern

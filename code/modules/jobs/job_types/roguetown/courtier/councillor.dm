@@ -62,7 +62,10 @@
 	armor = /obj/item/clothing/suit/roguetown/armor/gambeson/councillor
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/random
 	pants = /obj/item/clothing/under/roguetown/tights/random
-	shoes = /obj/item/clothing/shoes/roguetown/boots
+	if(should_wear_femme_clothes(H))
+		shoes = /obj/item/clothing/shoes/roguetown/heels/black
+	else
+		shoes = /obj/item/clothing/shoes/roguetown/boots
 	backl = /obj/item/storage/backpack/rogue/satchel
 	belt = /obj/item/storage/belt/rogue/leather/plaquesilver
 	beltl = /obj/item/storage/keyring/steward // If this turns out to be overbearing re:stewardry bump down to the clerk keyring instead.

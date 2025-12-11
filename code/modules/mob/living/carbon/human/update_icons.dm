@@ -1931,9 +1931,25 @@ generate/load female uniform sprites matching all previously decided variables
 	if(wear_shirt && (wear_shirt.body_parts_covered & ARMS) && !wear_shirt.sleeved)
 		hidearms = TRUE
 
+	// Check for heel torso offset
+	var/heel_torso_offset = 0
+	var/leg_stretch = 1.0
+	if(shoes && istype(shoes, /obj/item/clothing/shoes/roguetown/heels))
+		var/obj/item/clothing/shoes/roguetown/heels/H = shoes
+		leg_stretch = 1.0 + (H.heel_offset * 0.03)
+		// Calculate exact stretch amount - torso moves up by this much
+		heel_torso_offset = 32 * (leg_stretch - 1)
+
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
-		if(BP.name == BODY_ZONE_CHEST)
+		if(BP.body_zone == BODY_ZONE_HEAD)
+			// Apply torso offset to head
+			var/list/head_icons = BP.get_limb_icon()
+			if(heel_torso_offset)
+				for(var/image/head_img in head_icons)
+					head_img.pixel_y += heel_torso_offset
+			new_limbs += head_icons
+		else if(BP.name == BODY_ZONE_CHEST)
 			if(wear_armor)
 				var/obj/item/I = wear_armor
 				if(I.flags_inv & HIDEBOOB)
@@ -1946,9 +1962,33 @@ generate/load female uniform sprites matching all previously decided variables
 				var/obj/item/I = cloak
 				if(I.flags_inv & HIDEBOOB)
 					hiden = TRUE
-			new_limbs += BP.get_limb_icon(hideaux = hiden)
+			var/list/chest_icons = BP.get_limb_icon(hideaux = hiden)
+			// Apply torso offset for heels
+			if(heel_torso_offset)
+				for(var/image/chest_img in chest_icons)
+					chest_img.pixel_y += heel_torso_offset
+			new_limbs += chest_icons
 		else if(BP.body_part == ARM_LEFT || BP.body_part == ARM_RIGHT)
-			new_limbs += BP.get_limb_icon(hideaux = hidearms)
+			var/list/arm_icons = BP.get_limb_icon(hideaux = hidearms)
+			// Apply torso offset for heels
+			if(heel_torso_offset)
+				for(var/image/arm_img in arm_icons)
+					arm_img.pixel_y += heel_torso_offset
+			new_limbs += arm_icons
+		else if(BP.body_part == LEG_LEFT || BP.body_part == LEG_RIGHT)
+			// Get leg icons and apply heel stretch if wearing heels
+			var/list/leg_icons = BP.get_limb_icon()
+			if(leg_stretch > 1.0)
+				for(var/image/leg_img in leg_icons)
+					// Scale from bottom: translate to move bottom to origin, scale, translate back
+					var/matrix/M = matrix()
+					M.Translate(0, -16)  // Move bottom to origin
+					M.Scale(1.0, leg_stretch)  // Scale upward
+					M.Translate(0, 16)  // Move back
+					leg_img.transform = M
+					// Debug
+					world.log << "Leg stretch: [leg_stretch], torso offset: [heel_torso_offset]"
+			new_limbs += leg_icons
 		else
 			new_limbs += BP.get_limb_icon()
 	if(new_limbs.len)

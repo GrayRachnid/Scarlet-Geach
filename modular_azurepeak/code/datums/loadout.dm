@@ -786,3 +786,20 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/matthios_amulet
 	name = "Amulet of Matthios"
 	path = /obj/item/clothing/neck/roguetown/zcross/matthios
+
+// Heels
+/datum/loadout_item/heels_greyscale
+	name = "Heels"
+	path = /obj/item/clothing/shoes/roguetown/heels/greyscale
+
+/datum/loadout_item/heels_leather
+	name = "Leather Heel Boots"
+	path = /obj/item/clothing/shoes/roguetown/heels/leather
+
+/datum/loadout_item/heels_black
+	name = "Black Heel Boots"
+	path = /obj/item/clothing/shoes/roguetown/heels/black
+
+/datum/loadout_item/heels_gaudy
+	name = "Gaudy Heels"
+	path = /obj/item/clothing/shoes/roguetown/heels/gaudy

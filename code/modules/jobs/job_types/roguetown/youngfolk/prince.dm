@@ -106,7 +106,10 @@
 		beltr = /obj/item/storage/keyring/heir/warrior
 		beltl = /obj/item/rogueweapon/huntingknife/idagger/steel/special
 		backr = /obj/item/storage/backpack/rogue/satchel
-		shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
+		if(should_wear_femme_clothes(H))
+			shoes = /obj/item/clothing/shoes/roguetown/heels/greyscale
+		else
+			shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
 		mask = /obj/item/clothing/mask/rogue/spectacles
 		neck = /obj/item/storage/belt/rogue/pouch/coins/rich
 
@@ -136,7 +139,7 @@
 	)
 
 /datum/outfit/job/roguetown/heir/bookworm/pre_equip(mob/living/carbon/human/H)
-	..()
+	...()
 	if(should_wear_masc_clothes(H))
 		pants = /obj/item/clothing/under/roguetown/tights/random
 		armor = /obj/item/clothing/suit/roguetown/armor/longcoat
@@ -148,7 +151,10 @@
 	beltr = /obj/item/storage/keyring/heir/mage
 	beltl = /obj/item/rogueweapon/huntingknife/idagger/steel/special
 	backr = /obj/item/storage/backpack/rogue/satchel
-	shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
+	if(should_wear_femme_clothes(H))
+		shoes = /obj/item/clothing/shoes/roguetown/heels/greyscale
+	else
+		shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
 	mask = /obj/item/clothing/mask/rogue/spectacles
 	neck = /obj/item/storage/belt/rogue/pouch/coins/rich
 
@@ -197,7 +203,7 @@
 		head = /obj/item/clothing/head/roguetown/hennin
 		armor = /obj/item/clothing/suit/roguetown/armor/silkcoat
 		shirt = /obj/item/clothing/suit/roguetown/shirt/dress/royal/princess
-		shoes = /obj/item/clothing/shoes/roguetown/shortboots
+		shoes = /obj/item/clothing/shoes/roguetown/heels/greyscale
 	H.adjust_skillrank(/datum/skill/combat/crossbows, pick(0,1), TRUE)
 	H.adjust_skillrank(/datum/skill/misc/athletics, pick(0,1), TRUE)
 
@@ -245,7 +251,7 @@
 		head = /obj/item/clothing/head/roguetown/hennin
 		armor = /obj/item/clothing/suit/roguetown/armor/silkcoat
 		shirt = /obj/item/clothing/suit/roguetown/shirt/dress/royal/princess
-		shoes = /obj/item/clothing/shoes/roguetown/shortboots
+		shoes = /obj/item/clothing/shoes/roguetown/heels/gaudy
 
 	H.adjust_skillrank(/datum/skill/combat/crossbows, pick(0,1), TRUE)
 	H.adjust_skillrank(/datum/skill/misc/climbing, pick(0,0,1), TRUE)

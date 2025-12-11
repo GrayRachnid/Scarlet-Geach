@@ -49,7 +49,7 @@
 		head = /obj/item/clothing/head/roguetown/nyle/consortcrown
 		shirt = /obj/item/clothing/suit/roguetown/armor/armordress/winterdress/monarch
 		id = /obj/item/scomstone/garrison
-		shoes = /obj/item/clothing/shoes/roguetown/shortboots
+		shoes = /obj/item/clothing/shoes/roguetown/heels/greyscale
 	else if(should_wear_masc_clothes(H))
 		head = /obj/item/clothing/head/roguetown/nyle/consortcrown
 		pants = /obj/item/clothing/under/roguetown/tights

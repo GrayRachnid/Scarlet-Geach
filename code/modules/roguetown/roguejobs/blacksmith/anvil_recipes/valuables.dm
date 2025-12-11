@@ -192,3 +192,9 @@
 	req_bar = /obj/item/ingot/gold
 	created_item = /obj/item/clothing/neck/roguetown/zcross/matthios
 	craftdiff = 1
+
+/datum/anvil_recipe/valuables/gaudy_heels
+	name = "Gaudy Heels (1 Gold)"
+	req_bar = /obj/item/ingot/gold
+	created_item = /obj/item/clothing/shoes/roguetown/heels/gaudy
+	craftdiff = 3
