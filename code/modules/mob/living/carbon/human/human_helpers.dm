@@ -5,22 +5,23 @@
 /mob/living/carbon/human/restrained(ignore_grab = TRUE)
 	. = ((wear_armor && wear_armor.breakouttime) || ..())
 
-/// Returns the body height offset from worn clothing (like heels). Used for sprite rendering adjustments.
+// Returns the body height offset from worn clothing (like heels). Used for sprite rendering adjustments.
 /mob/living/carbon/human/proc/get_body_height_offset()
 	if(shoes && shoes.body_height_offset)
 		return shoes.body_height_offset
 	return 0
 
-/// Returns the calculated leg stretch multiplier based on body height offset.
-/// 
-/// **Stretch Multiplier Explanation (default 0.125):**
-/// Each offset point adds 12.5% vertical stretch to the legs. For standard 32px leg sprites:
-/// - offset 1: 1.125x stretch (4px growth)
-/// - offset 2: 1.25x stretch (8px growth)
-/// - offset 3: 1.375x stretch (12px growth)
-/// - offset 4: 1.5x stretch (16px growth)
-/// 
-/// This progression appears gradual and natural without excessive distortion.
+// Returns the calculated leg stretch multiplier based on body height offset.
+// 
+// Stretch Multiplier Explanation (default 0.125):
+//	Each offset point adds 12.5% vertical stretch to the legs. For standard 32px leg sprites:
+
+// - offset 1: 1.125x stretch (4px growth)
+// - offset 2: 1.25x stretch (8px growth)
+// - offset 3: 1.375x stretch (12px growth)
+// - offset 4: 1.5x stretch (16px growth)
+// 
+// This progression appears gradual and natural without excessive distortion.
 /mob/living/carbon/human/proc/get_leg_stretch()
 	var/offset = get_body_height_offset()
 	if(!offset)
@@ -28,24 +29,24 @@
 	var/stretch_mult = GLOB.heel_debug_stretch_multiplier || 0.125
 	return 1.0 + (offset * stretch_mult)
 
-/// Returns the leg pixel_y lift amount based on body height offset.
-/// 
-/// **Leg Lift Multiplier Explanation (default 2.0):**
-/// This value MUST equal half the sprite growth from stretching to anchor the bottom correctly.
-/// 
-/// Math proof for 32px sprites:
-/// - Growth from stretch = 32px * (stretch - 1) = 32 * offset * 0.125 = 4 * offset
-/// - Center-based scaling splits growth: half up, half down
-/// - To anchor bottom, shift UP by half growth = (4 * offset) / 2 = 2 * offset
-/// - Therefore: leg_lift_mult = 2.0
-/// 
-/// Example with offset 4:
-/// - Stretch = 1.5x (50% taller)
-/// - Growth = 32 * 0.5 = 16px
-/// - Lift = 16 / 2 = 8px
-/// - Result: Bottom stays anchored, top extends upward
-/// 
-/// If you change stretch_mult, you MUST update this to: (32 * stretch_mult) / 2
+// Returns the leg pixel_y lift amount based on body height offset.
+// 
+// Leg Lift Multiplier Explanation (default 2.0):
+// This value MUST equal half the sprite growth from stretching to anchor the bottom correctly.
+// 
+// Math proof for 32px sprites:
+// - Growth from stretch = 32px * (stretch - 1) = 32 * offset * 0.125 = 4 * offset
+// - Center-based scaling splits growth: half up, half down
+// - To anchor bottom, shift UP by half growth = (4 * offset) / 2 = 2 * offset
+// - Therefore: leg_lift_mult = 2.0
+// 
+// Example with offset 4:
+// - Stretch = 1.5x (50% taller)
+// - Growth = 32 * 0.5 = 16px
+// - Lift = 16 / 2 = 8px
+// - Result: Bottom stays anchored, top extends upward
+// 
+// If you change stretch_mult, you MUST update this to: (32 * stretch_mult) / 2
 /mob/living/carbon/human/proc/get_leg_lift()
 	var/offset = get_body_height_offset()
 	if(!offset)
@@ -53,12 +54,12 @@
 	var/leg_lift_mult = GLOB.heel_debug_leg_lift_multiplier || 2.0
 	return offset * leg_lift_mult
 
-/// Returns the torso/upper body pixel_y offset based on body height offset.
-/// 
-/// **Torso Offset Multiplier (default 1.0):**
-/// Simple 1:1 mapping - each offset point adds 1 pixel of torso height.
-/// This keeps the relationship intuitive: offset 4 = 4 pixels taller torso.
-/// Combined with the leg stretch, creates the appearance of wearing heels.
+// Returns the torso/upper body pixel_y offset based on body height offset.
+// 
+// Torso Offset Multiplier (default 1.0):
+// Simple 1:1 mapping - each offset point adds 1 pixel of torso height.
+// This keeps the relationship intuitive: offset 4 = 4 pixels taller torso.
+// Combined with the leg stretch, creates the appearance of wearing heels.
 /mob/living/carbon/human/proc/get_torso_offset()
 	var/offset = get_body_height_offset()
 	if(!offset)
