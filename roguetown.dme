@@ -1421,6 +1421,7 @@
 #include "code\modules\clothing\rogueclothes\cloaks.dm"
 #include "code\modules\clothing\rogueclothes\dummy_items.dm"
 #include "code\modules\clothing\rogueclothes\feet.dm"
+#include "code\modules\clothing\rogueclothes\feet_heels.dm"
 #include "code\modules\clothing\rogueclothes\gloves.dm"
 #include "code\modules\clothing\rogueclothes\hats.dm"
 #include "code\modules\clothing\rogueclothes\mask.dm"

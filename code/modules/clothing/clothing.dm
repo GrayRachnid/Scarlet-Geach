@@ -59,6 +59,9 @@
 
 	var/cansnout = FALSE //for masks - can we MMB this to change it into a snouty sprite?
 	var/snouting = FALSE //do we have the snout-snug sprite toggled?
+	
+	/// Height offset for shoes that make the wearer taller (heels, platforms, etc). Affects sprite rendering.
+	var/body_height_offset = 0
 
 /obj/item
 	var/blocking_behavior

@@ -7,7 +7,7 @@
 	sewrepair = TRUE
 	salvage_amount = 1
 	salvage_result = /obj/item/natural/hide/cured
-	var/heel_offset = 1  // Height boost level (1 offset = 0.03 stretch + 1 pixel torso lift)
+	body_height_offset = 1  // Height boost level
 
 /obj/item/clothing/shoes/roguetown/heels/greyscale
 	name = "heels"
@@ -27,7 +27,7 @@
 	max_integrity = 80  // Same as regular leather boots
 	armor = ARMOR_BOOTS_BAD
 	sellprice = 27
-	heel_offset = 3
+	body_height_offset = 3
 	var/has_buckles = FALSE
 
 /obj/item/clothing/shoes/roguetown/heels/leather/attackby(obj/item/W, mob/living/carbon/user, params)
@@ -75,7 +75,7 @@
 	max_integrity = 80  // Same as regular leather boots
 	armor = ARMOR_BOOTS_BAD
 	sellprice = 45
-	heel_offset = 4
+	body_height_offset = 4
 	var/has_buckles = FALSE
 
 /obj/item/clothing/shoes/roguetown/heels/black/attackby(obj/item/W, mob/living/carbon/user, params)

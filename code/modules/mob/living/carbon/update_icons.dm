@@ -175,6 +175,10 @@
 							inhand_overlay.pixel_y += H.dna.species.offset_features[OFFSET_HANDS_F][2]
 							behindhand_overlay.pixel_x += H.dna.species.offset_features[OFFSET_HANDS_F][1]
 							behindhand_overlay.pixel_y += H.dna.species.offset_features[OFFSET_HANDS_F][2]
+				var/torso_offset = H.get_torso_offset()
+				if(torso_offset)
+					inhand_overlay.pixel_y += torso_offset
+					behindhand_overlay.pixel_y += torso_offset
 
 			hands += inhand_overlay
 			behindhands += behindhand_overlay
@@ -194,9 +198,9 @@
 						if(OFFSET_HANDS_F in H.dna.species.offset_features)
 							inhand_overlay.pixel_x += H.dna.species.offset_features[OFFSET_HANDS_F][1]
 							inhand_overlay.pixel_y += H.dna.species.offset_features[OFFSET_HANDS_F][2]
-			hands += inhand_overlay
-
-	update_inv_cloak() //cloak held items
+				var/torso_offset = H.get_torso_offset()
+				if(torso_offset)
+					inhand_overlay.pixel_y += torso_offset
 
 	overlays_standing[HANDS_BEHIND_LAYER] = behindhands
 	overlays_standing[HANDS_LAYER] = hands
