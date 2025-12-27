@@ -27,6 +27,7 @@
 #define FOOTSTEP_MOB_SHOE 4
 #define FOOTSTEP_MOB_HUMAN 5 //Warning: Only works on /mob/living/carbon/human
 #define FOOTSTEP_MOB_SLIME 6
+#define FOOTSTEP_MOB_HEELS 7
 
 /*
 
@@ -172,5 +173,34 @@ GLOBAL_LIST_INIT(heavyfootstep, list(
 		'sound/foley/footsteps/FTMUD (3).ogg',
 		'sound/foley/footsteps/FTMUD (4).ogg',
 		'sound/foley/footsteps/FTMUD (5).ogg'), 100, 0),
+))
+
+//heel footsteps list
+GLOBAL_LIST_INIT(heelfootstep, list(
+	FOOTSTEP_STONE = list(list(
+		'sound/foley/footsteps/heels/heels(stone).ogg'), 70, 0),
+	FOOTSTEP_WOOD = list(list(
+		'sound/foley/footsteps/heels/heels(wood).ogg'), 70, 0),
+	FOOTSTEP_GRASS = list(list(
+		'sound/foley/footsteps/heels/heels(forest).ogg'), 70, 0),
+	FOOTSTEP_FLOOR = list(list(
+		'sound/foley/footsteps/heels/heels(stone).ogg'), 70, 0),
+	FOOTSTEP_CARPET = list(list(
+		'sound/foley/footsteps/heels/heels(wood).ogg'), 60, 0),
+	FOOTSTEP_SAND = list(list(
+		'sound/foley/footsteps/heels/heels(forest).ogg'), 60, 0),
+	FOOTSTEP_MUD = list(list(
+		'sound/foley/footsteps/heels/heels(forest).ogg'), 70, 0),
+	FOOTSTEP_WATER = list(list(
+		'sound/foley/footsteps/FTWAT_1.ogg',
+		'sound/foley/footsteps/FTWAT_2.ogg',
+		'sound/foley/footsteps/FTWAT_3.ogg',
+		'sound/foley/footsteps/FTWAT_4.ogg'), 100, 0),
+	FOOTSTEP_SHALLOW = list(list(
+		'sound/foley/footsteps/FTSHAL (1).ogg',
+		'sound/foley/footsteps/FTSHAL (2).ogg',
+		'sound/foley/footsteps/FTSHAL (3).ogg',
+		'sound/foley/footsteps/FTSHAL (4).ogg',
+		'sound/foley/footsteps/FTSHAL (5).ogg'), 100, 0),
 ))
 

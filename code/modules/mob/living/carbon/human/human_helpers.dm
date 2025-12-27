@@ -26,8 +26,7 @@
 	var/offset = get_body_height_offset()
 	if(!offset)
 		return 1.0
-	var/stretch_mult = GLOB.heel_debug_stretch_multiplier || 0.125
-	return 1.0 + (offset * stretch_mult)
+	return 1.0 + (offset * 0.125)
 
 // Returns the leg pixel_y lift amount based on body height offset.
 // 
@@ -51,8 +50,7 @@
 	var/offset = get_body_height_offset()
 	if(!offset)
 		return 0
-	var/leg_lift_mult = GLOB.heel_debug_leg_lift_multiplier || 2.0
-	return offset * leg_lift_mult
+	return offset * 2.0
 
 // Returns the torso/upper body pixel_y offset based on body height offset.
 // 

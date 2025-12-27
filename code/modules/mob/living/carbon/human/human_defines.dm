@@ -19,6 +19,9 @@
 	var/footstep_type = FOOTSTEP_MOB_HUMAN
 
 	var/last_sound //last emote so we have no doubles
+	
+	var/torso_offset = 0 // Pixel offset for torso from height-modifying clothing
+	var/leg_stretch = 1.0 // Vertical stretch multiplier for legs from height-modifying clothing
 
 	//Hair colour and style
 	var/hair_color = "000"

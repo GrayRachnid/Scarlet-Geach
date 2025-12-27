@@ -9,6 +9,10 @@
 	salvage_result = /obj/item/natural/hide/cured
 	body_height_offset = 1  // Height boost level
 
+/obj/item/clothing/shoes/roguetown/heels/Initialize()
+	. = ..()
+	AddComponent(/datum/component/squeak, FOOTSTEP_MOB_HEELS, 70, 0)
+
 /obj/item/clothing/shoes/roguetown/heels/greyscale
 	name = "heels"
 	desc = "Elegant open-top heels with a tall narrow heel. The simple design can be dyed any color."
@@ -77,6 +81,8 @@
 	sellprice = 45
 	body_height_offset = 4
 	var/has_buckles = FALSE
+	var/shiftable = TRUE
+	var/shifted = FALSE
 
 /obj/item/clothing/shoes/roguetown/heels/black/attackby(obj/item/W, mob/living/carbon/user, params)
 	if(istype(W, /obj/item/ingot/iron))
@@ -97,6 +103,34 @@
 	
 	return ..()
 
+/obj/item/clothing/shoes/roguetown/heels/black/attack_right(mob/user)
+	if(!shiftable)
+		return
+	if(shifted)
+		if(alert("Would you like to wear your boots normally? -Removes greyscaling.",,"Yes","No") != "No")
+			icon_state = "blackheelboots"
+			item_state = "blackheelboots"
+			color = null
+			update_icon()
+			shifted = FALSE
+			if(user)
+				if(ishuman(user))
+					var/mob/living/carbon/H = user
+					H.update_inv_shoes()
+			return
+	else
+		if(alert("Would you like to wear your boots colorfully? -Adds Greyscaling.",,"Yes","No") != "No")
+			icon_state = "gblackheelboots"
+			item_state = "gblackheelboots"
+			color = null
+			update_icon()
+			shifted = TRUE
+			if(user)
+				if(ishuman(user))
+					var/mob/living/carbon/H = user
+					H.update_inv_shoes()
+			return
+
 /obj/item/clothing/shoes/roguetown/heels/black/update_icon()
 	cut_overlays()
 	if(has_buckles && detail_tag)
@@ -113,6 +147,36 @@
 	sellprice = 50
 	var/atom/movable/holdingknife = "blocked" // Prevents knife storage
 	var/has_rose = FALSE
+	var/shiftable = TRUE
+	var/shifted = FALSE
+
+/obj/item/clothing/shoes/roguetown/heels/gaudy/attack_right(mob/user)
+	if(!shiftable)
+		return
+	if(shifted)
+		if(alert("Would you like to wear your boots normally? -Removes greyscaling.",,"Yes","No") != "No")
+			icon_state = "gaudyheels"
+			item_state = "gaudyheels"
+			color = null
+			update_icon()
+			shifted = FALSE
+			if(user)
+				if(ishuman(user))
+					var/mob/living/carbon/H = user
+					H.update_inv_shoes()
+			return
+	else
+		if(alert("Would you like to wear your heels colorfully? -Adds Greyscaling.",,"Yes","No") != "No")
+			icon_state = "ggaudyheels"
+			item_state = "ggaudyheels"
+			color = null
+			update_icon()
+			shifted = TRUE
+			if(user)
+				if(ishuman(user))
+					var/mob/living/carbon/H = user
+					H.update_inv_shoes()
+			return
 
 /obj/item/clothing/shoes/roguetown/heels/gaudy/attackby(obj/item/W, mob/living/carbon/user, params)
 	if(istype(W, /obj/item/carvedgem/rose))

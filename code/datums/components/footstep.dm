@@ -32,6 +32,8 @@
 			footstep_sounds = GLOB.heavyfootstep
 		if(FOOTSTEP_MOB_SHOE)
 			footstep_sounds = GLOB.footstep
+		if(FOOTSTEP_MOB_HEELS)
+			footstep_sounds = GLOB.heelfootstep
 		if(FOOTSTEP_MOB_SLIME)
 			footstep_sounds = 'sound/blank.ogg'
 	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED), PROC_REF(play_simplestep)) //Note that this doesn't get called for humans.
@@ -97,6 +99,8 @@ var/list/kick_verb
 		if(FOOTSTEP_MOB_HEAVY)
 			turf_footstep = T.heavyfootstep
 		if(FOOTSTEP_MOB_SHOE)
+			turf_footstep = T.footstep
+		if(FOOTSTEP_MOB_HEELS)
 			turf_footstep = T.footstep
 	if(!turf_footstep)
 		return

@@ -391,6 +391,8 @@ There are several things that need to be remembered:
 				if(OFFSET_NECK_F in dna.species.offset_features)
 					neck_overlay.pixel_x += dna.species.offset_features[OFFSET_NECK_F][1]
 					neck_overlay.pixel_y += dna.species.offset_features[OFFSET_NECK_F][2]
+			if(torso_offset)
+				neck_overlay.pixel_y += torso_offset
 			overlays_standing[NECK_LAYER] = neck_overlay
 
 		update_hud_neck(wear_neck)
@@ -480,6 +482,8 @@ There are several things that need to be remembered:
 				if(OFFSET_GLOVES_F in dna.species.offset_features)
 					gloves_overlay.pixel_x += dna.species.offset_features[OFFSET_GLOVES_F][1]
 					gloves_overlay.pixel_y += dna.species.offset_features[OFFSET_GLOVES_F][2]
+			if(torso_offset)
+				gloves_overlay.pixel_y += torso_offset
 			overlays_standing[GLOVES_LAYER] = gloves_overlay
 
 			//add sleeve overlays, then offset
@@ -497,6 +501,8 @@ There are several things that need to be remembered:
 						if(OFFSET_GLOVES_F in dna.species.offset_features)
 							S.pixel_x += dna.species.offset_features[OFFSET_GLOVES_F][1]
 							S.pixel_y += dna.species.offset_features[OFFSET_GLOVES_F][2]
+					if(torso_offset)
+						S.pixel_y += torso_offset
 				overlays_standing[GLOVESLEEVE_LAYER] = sleeves
 	rebuild_obscured_flags()
 	apply_overlay(GLOVES_LAYER)
@@ -535,6 +541,8 @@ There are several things that need to be remembered:
 				if(OFFSET_WRISTS_F in dna.species.offset_features)
 					wrists_overlay.pixel_x += dna.species.offset_features[OFFSET_WRISTS_F][1]
 					wrists_overlay.pixel_y += dna.species.offset_features[OFFSET_WRISTS_F][2]
+			if(torso_offset)
+				wrists_overlay.pixel_y += torso_offset
 			overlays_standing[WRISTS_LAYER] = wrists_overlay
 
 			//add sleeve overlays, then offset
@@ -552,6 +560,8 @@ There are several things that need to be remembered:
 						if(OFFSET_WRISTS_F in dna.species.offset_features)
 							S.pixel_x += dna.species.offset_features[OFFSET_WRISTS_F][1]
 							S.pixel_y += dna.species.offset_features[OFFSET_WRISTS_F][2]
+					if(torso_offset)
+						S.pixel_y += torso_offset
 				overlays_standing[WRISTSLEEVE_LAYER] = sleeves
 
 	rebuild_obscured_flags()
@@ -661,6 +671,23 @@ There are several things that need to be remembered:
 				overlays_standing[SHOESLEEVE_LAYER] = sleeves
 
 	rebuild_obscured_flags()
+	// Update global height offset variables
+	torso_offset = get_torso_offset()
+	leg_stretch = get_leg_stretch()
+	// Trigger update of clothing affected by height changes
+	spawn(1)
+		update_body_parts()
+		update_inv_gloves()
+		update_inv_wrists()
+		update_inv_head()
+		update_inv_neck()
+		update_inv_back()
+		update_inv_armor()
+		update_inv_neck()
+		update_inv_cloak()
+		update_inv_shirt()
+		update_inv_armor()
+		update_inv_pants()
 	apply_overlay(SHOES_LAYER)
 	apply_overlay(SHOESLEEVE_LAYER)
 
@@ -717,6 +744,8 @@ There are several things that need to be remembered:
 				if(OFFSET_HEAD_F in dna.species.offset_features)
 					head_overlay.pixel_x += dna.species.offset_features[OFFSET_HEAD_F][1]
 					head_overlay.pixel_y += dna.species.offset_features[OFFSET_HEAD_F][2]
+			if(torso_offset)
+				head_overlay.pixel_y += torso_offset
 			overlays_standing[HEAD_LAYER] = head_overlay
 		apply_overlay(HEAD_LAYER)
 
@@ -1145,6 +1174,8 @@ There are several things that need to be remembered:
 				if(OFFSET_CLOAK_F in dna.species.offset_features)
 					cloak_overlay.pixel_x += dna.species.offset_features[OFFSET_CLOAK_F][1]
 					cloak_overlay.pixel_y += dna.species.offset_features[OFFSET_CLOAK_F][2]
+			if(torso_offset)
+				cloak_overlay.pixel_y += torso_offset
 			if(cloak.alternate_worn_layer == TABARD_LAYER)
 				overlays_standing[TABARD_LAYER] = cloak_overlay
 			if(cloak.alternate_worn_layer == UNDER_ARMOR_LAYER)
@@ -1215,6 +1246,8 @@ There are several things that need to be remembered:
 						if(OFFSET_SHIRT_F in dna.species.offset_features)
 							S.pixel_x += dna.species.offset_features[OFFSET_CLOAK_F][1]
 							S.pixel_y += dna.species.offset_features[OFFSET_CLOAK_F][2]
+					if(torso_offset)
+						S.pixel_y += torso_offset
 					cloaklays += S
 
 	overlays_standing[CLOAK_LAYER] = cloaklays
@@ -1262,8 +1295,9 @@ There are several things that need to be remembered:
 				if(OFFSET_SHIRT_F in dna.species.offset_features)
 					shirt_overlay.pixel_x += dna.species.offset_features[OFFSET_SHIRT_F][1]
 					shirt_overlay.pixel_y += dna.species.offset_features[OFFSET_SHIRT_F][2]
+			if(torso_offset)
+				shirt_overlay.pixel_y += torso_offset
 			overlays_standing[SHIRT_LAYER] = shirt_overlay
-
 			//add sleeve overlays, then offset
 			var/list/sleeves = list()
 			if(wear_shirt.sleeved && armsindex > 0 && !should_hide_sleeves_for_layer(SHIRTSLEEVE_LAYER))
@@ -1279,9 +1313,9 @@ There are several things that need to be remembered:
 						if(OFFSET_SHIRT_F in dna.species.offset_features)
 							S.pixel_x += dna.species.offset_features[OFFSET_SHIRT_F][1]
 							S.pixel_y += dna.species.offset_features[OFFSET_SHIRT_F][2]
+					if(torso_offset)
+						S.pixel_y += torso_offset
 				overlays_standing[SHIRTSLEEVE_LAYER] = sleeves
-
-	rebuild_obscured_flags()
 	if(gender == FEMALE && dna?.species)
 		update_body_parts(redraw = TRUE)
 		dna.species.handle_body(src)
@@ -1332,8 +1366,9 @@ There are several things that need to be remembered:
 				if(OFFSET_ARMOR_F in dna.species.offset_features)
 					armor_overlay.pixel_x += dna.species.offset_features[OFFSET_ARMOR_F][1]
 					armor_overlay.pixel_y += dna.species.offset_features[OFFSET_ARMOR_F][2]
+			if(torso_offset)
+				armor_overlay.pixel_y += torso_offset
 			overlays_standing[ARMOR_LAYER] = armor_overlay
-
 			//add sleeve overlays, then offset
 			var/list/sleeves = list()
 			if(wear_armor.sleeved && armsindex > 0 && !should_hide_sleeves_for_layer(ARMORSLEEVE_LAYER))
@@ -1349,9 +1384,9 @@ There are several things that need to be remembered:
 						if(OFFSET_ARMOR_F in dna.species.offset_features)
 							S.pixel_x += dna.species.offset_features[OFFSET_ARMOR_F][1]
 							S.pixel_y += dna.species.offset_features[OFFSET_ARMOR_F][2]
+					if(torso_offset)
+						S.pixel_y += torso_offset
 				overlays_standing[ARMORSLEEVE_LAYER] = sleeves
-
-	rebuild_obscured_flags()
 	if(gender == FEMALE && dna?.species)
 		update_body_parts(redraw = TRUE)
 		dna.species.handle_body(src)
@@ -1406,6 +1441,14 @@ There are several things that need to be remembered:
 				if(OFFSET_PANTS_F in dna.species.offset_features)
 					pants_overlay.pixel_x += dna.species.offset_features[OFFSET_PANTS_F][1]
 					pants_overlay.pixel_y += dna.species.offset_features[OFFSET_PANTS_F][2]
+			// Apply leg stretching from heels
+			if(leg_stretch > 1.0)
+				var/matrix/M = matrix()
+				M.Scale(1.0, leg_stretch)
+				pants_overlay.transform = M
+				var/leg_lift = get_leg_lift()
+				if(leg_lift)
+					pants_overlay.pixel_y += leg_lift
 			overlays_standing[PANTS_LAYER] = pants_overlay
 
 			//add sleeve overlays, then offset
@@ -1426,6 +1469,14 @@ There are several things that need to be remembered:
 						if(OFFSET_PANTS_F in dna.species.offset_features)
 							S.pixel_x += dna.species.offset_features[OFFSET_PANTS_F][1]
 							S.pixel_y += dna.species.offset_features[OFFSET_PANTS_F][2]
+					// Apply leg stretching from heels
+					if(leg_stretch > 1.0)
+						var/matrix/M = matrix()
+						M.Scale(1.0, leg_stretch)
+						S.transform = M
+						var/leg_lift = get_leg_lift()
+						if(leg_lift)
+							S.pixel_y += leg_lift
 				overlays_standing[LEGSLEEVE_LAYER] = sleeves
 
 	rebuild_obscured_flags()
@@ -1929,12 +1980,30 @@ generate/load female uniform sprites matching all previously decided variables
 
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		BP.update_limb()
+		var/list/limb_overlays
 		if(BP.body_zone == BODY_ZONE_CHEST)
-			new_limbs += BP.get_limb_icon(hideaux = hiden)
+			limb_overlays = BP.get_limb_icon(hideaux = hiden)
 		else if(BP.body_part == ARM_LEFT || BP.body_part == ARM_RIGHT)
-			new_limbs += BP.get_limb_icon(hideaux = hidearms)
+			limb_overlays = BP.get_limb_icon(hideaux = hidearms)
 		else
-			new_limbs += BP.get_limb_icon()
+			limb_overlays = BP.get_limb_icon()
+		
+		// Apply height adjustments from heels to each overlay in the list
+		if(limb_overlays)
+			for(var/mutable_appearance/limb_overlay as anything in limb_overlays)
+				// Apply leg stretching to legs
+				if((BP.body_part == LEG_LEFT || BP.body_part == LEG_RIGHT) && leg_stretch > 1.0)
+					var/matrix/M = matrix()
+					M.Scale(1.0, leg_stretch)
+					limb_overlay.transform = M
+					var/leg_lift = get_leg_lift()
+					if(leg_lift)
+						limb_overlay.pixel_y += leg_lift
+				// Apply torso offset to upper body parts
+				else if(torso_offset && (BP.body_zone == BODY_ZONE_CHEST || BP.body_zone == BODY_ZONE_HEAD || BP.body_part == ARM_LEFT || BP.body_part == ARM_RIGHT))
+					limb_overlay.pixel_y += torso_offset
+		
+		new_limbs += limb_overlays
 
 	if(length(new_limbs))
 		overlays_standing[BODYPARTS_LAYER] = new_limbs
