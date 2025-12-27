@@ -820,11 +820,11 @@ var/forgerites = list("Ritual of Blessed Reforgance")
 		loc.visible_message(span_cult("Great hooks come from the rune, embedding into [target]'s ankles, pulling them onto the rune. Then, into their wrists. Their lux is torn from their chest, and reforms into armor. "))
 	spawn(20)
 		playsound(loc, 'sound/combat/hits/onmetal/grille (2).ogg', 50)
-		target.equipOutfit(/datum/outfit/job/roguetown/darksteelrite)
+		target.equipOutfit(/datum/outfit/job/darksteelrite)
 		spawn(40)
 			to_chat(target, span_purple("They are ignorant, backwards, without hope. You. You will be powerful."))
 
-/datum/outfit/job/roguetown/darksteelrite/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/darksteelrite/pre_equip(mob/living/carbon/human/H)
 	..()
 	var/list/items = list()
 	items |= H.get_equipped_items(TRUE)
@@ -871,7 +871,7 @@ var/forgerites = list("Ritual of Blessed Reforgance")
 		ADD_TRAIT(target, TRAIT_NOPAIN, "[type]")
 		ADD_TRAIT(target, TRAIT_TOXIMMUNE, "[type]")
 		ADD_TRAIT(target, TRAIT_STEELHEARTED, "[type]")
-		ADD_TRAIT(target, TRAIT_INFINITE_STAMINA, "[type]")
+		ADD_TRAIT(target, TRAIT_INFINITE_ENERGY, "[type]")
 		ADD_TRAIT(target, TRAIT_SLOW_SWIMMER, "[type]")
 		ADD_TRAIT(target, TRAIT_BLOODLOSS_IMMUNE, "[type]")
 		ADD_TRAIT(target, TRAIT_LIMBATTACHMENT, "[type]")
@@ -974,13 +974,13 @@ var/forgerites = list("Ritual of Blessed Reforgance")
 	loc.visible_message(span_cult("[target]'s lux pours from their nose, into the rune, gleaming golds sizzles. Molten gold and metals swirl into armor, seered to their skin."))
 	spawn(20)
 		playsound(loc, 'sound/combat/hits/onmetal/grille (2).ogg', 50)
-		target.equipOutfit(/datum/outfit/job/roguetown/gildedrite)
+		target.equipOutfit(/datum/outfit/job/gildedrite)
 		// target.apply_status_effect(/datum/status_effect/debuff/devitalised) // Removed: do not consume lux
 		spawn(40)
 			to_chat(target, span_cult("More to the maw, this shall help feed our greed."))
 
 
-/datum/outfit/job/roguetown/gildedrite/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/gildedrite/pre_equip(mob/living/carbon/human/H)
 	..()
 	var/list/items = list()
 	items |= H.get_equipped_items(TRUE)
@@ -1064,12 +1064,12 @@ var/forgerites = list("Ritual of Blessed Reforgance")
 	loc.visible_message(span_cult("[target]'s lux pours from their nose, into the rune, motive and metals swirl into armor, snug around their form!"))
 	spawn(20)
 		playsound(loc, 'sound/combat/hits/onmetal/grille (2).ogg', 50)
-		target.equipOutfit(/datum/outfit/job/roguetown/viciousrite)
+		target.equipOutfit(/datum/outfit/job/viciousrite)
 		// target.apply_status_effect(/datum/status_effect/debuff/devitalised) // Removed: do not consume lux
 		spawn(40)
 			to_chat(target, span_cult("Break them."))
 
-/datum/outfit/job/roguetown/viciousrite/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/viciousrite/pre_equip(mob/living/carbon/human/H)
 	..()
 	var/list/items = list()
 	items |= H.get_equipped_items(TRUE)
@@ -1089,3 +1089,41 @@ var/forgerites = list("Ritual of Blessed Reforgance")
 	name = "Rune of Desire"
 	desc = "A Holy Rune of Baotha. Relief for the broken hearted."
 	icon_state = "baotha_chalky" // mortosasye
+	var/baotharites = list("Rite of Joy")
+
+/obj/structure/ritualcircle/baotha/attack_hand(mob/living/user)
+	if((user.patron?.type) != /datum/patron/inhumen/baotha)
+		to_chat(user,span_smallred("I don't know the proper rites for this..."))
+		return
+	if(!HAS_TRAIT(user, TRAIT_RITUALIST))
+		to_chat(user,span_smallred("I don't know the proper rites for this..."))
+		return
+	var/riteselection = input(user, "Rituals of Bliss", src) as null|anything in baotharites
+	switch(riteselection) // put ur rite selection here
+		if("Rite of Joy")
+			if(HAS_TRAIT(user, TRAIT_RITES_BLOCKED))
+				to_chat(user,span_smallred("I have performed enough rituals for the day... I must rest before communing more."))
+				return
+			var/onrune = view(1, loc)
+			var/list/folksonrune = list()
+			for(var/mob/living/carbon/human/persononrune in onrune)
+				if(HAS_TRAIT(persononrune, TRAIT_DEPRAVED))
+					folksonrune += persononrune
+			var/target = input(user, "Choose a host") as null|anything in folksonrune
+			if(!target)
+				return
+			if(do_after(user, 50))
+				user.say("Let the wine flow, let the music crash!")
+				if(do_after(user, 50))
+					user.say("Away with tears, away with shame!")
+					to_chat(user, span_notice("The memory of sorrow fades into a haze of bliss."))
+					if(do_after(user, 50))
+						user.say("Grant me the bliss, grant me the rush!")
+						if(do_after(user, 50))
+							icon_state = "baotha_active"
+							user.say("Baotha, fill my cup with endless mirth!")
+							playsound(loc, 'sound/misc/evilevent.ogg', 100, FALSE, -1)
+							user.apply_status_effect(/datum/status_effect/joybringer)
+							user.apply_status_effect(/datum/status_effect/debuff/ritesexpended_high)
+							spawn(120)
+								icon_state = "baotha_chalky" 

@@ -295,6 +295,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	// End
 
 /datum/preferences/proc/save_preferences()
+	if(!parent || !parent.mob)
+		return FALSE
 	if(!path)
 		return FALSE
 	var/savefile/S = new /savefile(path)
@@ -480,6 +482,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["hair_color"]			>> hair_color
 	S["facial_hair_color"]	>> facial_hair_color
 	S["eye_color"]			>> eye_color
+	S["family"]				>> family
+	S["gender_choice"] 		>> gender_choice
+	S["setspouse"] 			>> setspouse
+	S["xenophobe_pref"]		>> xenophobe_pref
 	S["extra_language"]		>> extra_language
 	S["selected_title"]		>> selected_title
 	S["voice_color"]		>> voice_color
@@ -642,6 +648,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	age				= sanitize_inlist(age, pref_species.possible_ages)
 	eye_color		= sanitize_hexcolor(eye_color, 3, 0)
+	family 			= family
+	gender_choice 	= gender_choice
+	setspouse 		= setspouse
+	xenophobe_pref 	= xenophobe_pref
 	extra_language  = extra_language
 	selected_title  = selected_title
 	voice_color		= voice_color
@@ -780,6 +790,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["virtuetwo"], virtuetwo.type)
 	WRITE_FILE(S["virtue_origin"], virtue_origin.type)
 	WRITE_FILE(S["combat_music"], combat_music.type)
+	WRITE_FILE(S["family"], family)
+	WRITE_FILE(S["gender_choice"], gender_choice)
+	WRITE_FILE(S["setspouse"], setspouse)
+	WRITE_FILE(S["xenophobe_pref"], xenophobe_pref)
 	WRITE_FILE(S["body_size"] , features["body_size"])
 	if(loadout)
 		WRITE_FILE(S["loadout"] , loadout.type)

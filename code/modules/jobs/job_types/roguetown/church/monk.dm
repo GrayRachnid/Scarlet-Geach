@@ -9,7 +9,7 @@
 	allowed_races = RACES_ALL_KINDS
 	allowed_patrons = ALL_DIVINE_PATRONS
 	allowed_sexes = list(MALE, FEMALE)
-	outfit = /datum/outfit/job/roguetown/monk
+	outfit = /datum/outfit/job/monk
 	tutorial = "Chores, some more chores- Even more chores. Oh, how the life of a humble acolyte is exhausting… You have faith, but even you know you gave up a life of adventure for that of the security in the Church. Assist the Priest in their daily tasks, maybe today will be the day something interesting happens."
 
 	display_order = JDO_MONK
@@ -23,6 +23,7 @@
 	virtue_restrictions = list(
 		/datum/virtue/utility/noble,
 		/datum/virtue/utility/blueblooded,
+		/datum/virtue/combat/crimson_curse,
 	)
 
 	job_traits = list(TRAIT_RITUALIST, TRAIT_GRAVEROBBER, TRAIT_CLERGY)
@@ -37,8 +38,10 @@
 		var/mob/living/carbon/human/H = L
 		var/prev_real_name = H.real_name
 		var/prev_name = H.name
-		var/honorary = "Brother"
-		if(should_wear_femme_clothes(H))
+		var/honorary = "Sibling"
+		if(get_pronoun_gender(H) == "MASC")
+			honorary = "Brother"
+		if(get_pronoun_gender(H) == "FEM")
 			honorary = "Sister"
 		GLOB.chosen_names -= prev_real_name
 		H.real_name = "[honorary] [prev_real_name]"
@@ -54,7 +57,7 @@
 /datum/advclass/acolyte
 	name = "Acolyte"
 	tutorial = "Chores, some more chores- Even more chores. Oh, how the life of a humble acolyte is exhausting… You have faith, but even you know you gave up a life of adventure for that of the security in the Church. Assist the Priest in their daily tasks, maybe today will be the day something interesting happens."
-	outfit = /datum/outfit/job/roguetown/monk/basic
+	outfit = /datum/outfit/job/monk/basic
 	category_tags = list(CTAG_ACOLYTE)
 	cmode_music = 'sound/music/combat_holy.ogg'
 
@@ -78,7 +81,7 @@
 		/datum/skill/magic/holy = SKILL_LEVEL_MASTER,
 	)
 
-/datum/outfit/job/roguetown/monk
+/datum/outfit/job/monk
 	name = "Acolyte"
 	jobtype = /datum/job/roguetown/monk
 	job_bitflag = BITFLAG_CHURCH
@@ -96,7 +99,7 @@
 
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/monk/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/monk/basic/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	belt = /obj/item/storage/belt/rogue/leather/rope
@@ -187,7 +190,7 @@
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T4, passive_gain = CLERIC_REGEN_MAJOR, start_maxed = TRUE)
 
-/datum/outfit/job/roguetown/monk/basic/choose_loadout(mob/living/carbon/human/H)
+/datum/outfit/job/monk/basic/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
@@ -199,6 +202,7 @@
 		H.adjust_skillrank(/datum/skill/misc/reading, 3, TRUE) // Really good at reading... does this really do anything? No. BUT it's soulful.
 		H.adjust_skillrank(/datum/skill/craft/alchemy, 2, TRUE)
 		H.adjust_skillrank(/datum/skill/magic/arcane, 2, TRUE) // for their arcane spells, very little CDR and cast speed.
+		ADD_TRAIT(H, TRAIT_TALENTED_ALCHEMIST, TRAIT_GENERIC)
 	if(H.patron?.type == /datum/patron/divine/abyssor) // The Sea and Weather - probably would be good at fishing
 		H.adjust_skillrank(/datum/skill/labor/fishing, 3, TRUE)
 		H.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
@@ -211,6 +215,7 @@
 		H.adjust_skillrank(/datum/skill/misc/medicine, 1, TRUE)
 		H.adjust_skillrank(/datum/skill/craft/alchemy, 1, TRUE)
 		ADD_TRAIT(H, TRAIT_NOSTINK, TRAIT_GENERIC)
+		ADD_TRAIT(H, TRAIT_TALENTED_ALCHEMIST, TRAIT_GENERIC)
 	if(H.patron?.type == /datum/patron/divine/eora) // Beauty and Love - beautiful and can read people pretty well.
 		ADD_TRAIT(H, TRAIT_BEAUTIFUL, TRAIT_GENERIC)
 		ADD_TRAIT(H, TRAIT_EMPATH, TRAIT_GENERIC)

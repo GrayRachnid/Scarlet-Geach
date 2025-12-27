@@ -171,7 +171,7 @@
 	if(!allow_all)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			if(HAS_TRAIT(user, TRAIT_ROTMAN) || HAS_TRAIT(user, TRAIT_NOBREATH))	//Can't be a Martyr if you're undead already.
+			if(HAS_TRAIT(user, TRAIT_ROTMAN) || H.mob_biotypes & MOB_UNDEAD)	//Can't be a Martyr if you're undead already.
 				to_chat(H, span_warn("It burns and sizzles! It does not tolerate my pallid flesh!"))
 				H.dropItemToGround(parent)
 				return
@@ -432,7 +432,7 @@
 		/datum/species/harpy,
 	)
 	allowed_patrons = ALL_DIVINE_PATRONS
-	outfit = /datum/outfit/job/roguetown/martyr
+	outfit = /datum/outfit/job/martyr
 	min_pq =  14
 	max_pq = null
 	round_contrib_points = 4
@@ -464,6 +464,7 @@
 		/datum/virtue/combat/dualwielder,
 		/datum/virtue/heretic/zchurch_keyholder,
 		/datum/virtue/combat/hollow_life,
+		/datum/virtue/combat/crimson_curse,
 	)
 
 	advclass_cat_rolls = list(CTAG_MARTYR = 2)
@@ -474,7 +475,7 @@
 /datum/advclass/martyr
 	name = "Martyr"
 	tutorial = "Martyrs are hand-picked among the most devout of the Holy See. They are given one of the See's cherished relics to protect the Church, and to inspire hope and lead by example of grace, kindness and vicious intolerance to any who do not share the belief of the Ten. They have sworn an Oath in the sight of the gods, and will fulfill it to the bitter end."
-	outfit = /datum/outfit/job/roguetown/martyr/basic
+	outfit = /datum/outfit/job/martyr/basic
 	category_tags = list(CTAG_MARTYR)
 
 	subclass_stats = list(
@@ -502,10 +503,10 @@
 		/datum/skill/misc/sneaking = SKILL_LEVEL_NOVICE,
 	)
 
-/datum/outfit/job/roguetown/martyr
+/datum/outfit/job/martyr
 	job_bitflag = BITFLAG_CHURCH
 
-/datum/outfit/job/roguetown/martyr/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/martyr/basic/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor

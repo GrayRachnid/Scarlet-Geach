@@ -4,9 +4,9 @@
 	tutorial = "The wretched engine of evil churns ever onward - the gears pushed by wretched toilers such as yourself. And toil you shall - until the machinations of thine masters come to fruition."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
-	outfit = /datum/outfit/job/roguetown/wretch/wretchedtoiler
+	outfit = /datum/outfit/job/wretch/wretchedtoiler
 	category_tags = list(CTAG_WRETCH)
-	traits_applied = list(TRAIT_RITUALIST, TRAIT_ARCYNE_T2)
+	traits_applied = list(TRAIT_RITUALIST, TRAIT_ARCYNE_T2, TRAIT_TALENTED_ALCHEMIST)
 	cmode_music = 'sound/music/combat_mastermind.ogg' //evil ass mastermind music
 	extra_context = "Choose between 2 options: being an EVIL mastermind or a WRETCHED servant" //choose between master and servant
 	maximum_possible_slots = 5 // We can toil a LOT but if the entire wretch slot is just omnicrafters this will become problematic
@@ -39,10 +39,11 @@
 		/datum/skill/magic/arcane = SKILL_LEVEL_EXPERT, //summon monsters? I think?
 		/datum/skill/magic/holy = SKILL_LEVEL_EXPERT, //miracle regen? I think?
 		/datum/skill/craft/alchemy = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT, // brotherhood order spells most importantly. But this fellas gonna run a lot to.
 		)
 
 // Hedge Mage on purpose has nearly the same fit as a Adv Mage / Mage Associate who cast conjure armor roundstart. Call it meta disguise.
-/datum/outfit/job/roguetown/wretch/wretchedtoiler/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/wretch/wretchedtoiler/pre_equip(mob/living/carbon/human/H)
 	//shared loadout
 	belt = /obj/item/storage/belt/rogue/leather
 	beltl = /obj/item/storage/magebag/starter
@@ -69,7 +70,7 @@
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/gravemark)
 			H.mind.current.faction += "[H.name]_faction"
 	var/classes = list("MALICIOUS Mastermind","SNIVELLING servant")
-	var/classchoice = input("Choose your archetypes", "Available archetypes") as anything in classes
+	var/classchoice = input(H, "Choose your archetypes", "Available archetypes") as anything in classes
 	switch(classchoice)
 		if("MALICIOUS Mastermind")
 			//stats
