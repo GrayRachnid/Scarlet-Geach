@@ -11,7 +11,28 @@
 
 /obj/item/clothing/shoes/roguetown/heels/Initialize()
 	. = ..()
-	AddComponent(/datum/component/squeak, FOOTSTEP_MOB_HEELS, 70, 0)
+	RegisterSignal(src, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
+	RegisterSignal(src, COMSIG_ITEM_DROPPED, PROC_REF(on_unequip))
+
+/obj/item/clothing/shoes/roguetown/heels/proc/on_equip(datum/source, mob/equipper, slot)
+	SIGNAL_HANDLER
+	if(slot != SLOT_SHOES)
+		return
+	if(!ishuman(equipper))
+		return
+	var/mob/living/carbon/human/H = equipper
+	for(var/datum/component/footstep/FS in H.GetComponents(/datum/component/footstep))
+		FS.use_heel_sounds = TRUE
+		break
+
+/obj/item/clothing/shoes/roguetown/heels/proc/on_unequip(datum/source, mob/unequipper)
+	SIGNAL_HANDLER
+	if(!ishuman(unequipper))
+		return
+	var/mob/living/carbon/human/H = unequipper
+	for(var/datum/component/footstep/FS in H.GetComponents(/datum/component/footstep))
+		FS.use_heel_sounds = FALSE
+		break
 
 /obj/item/clothing/shoes/roguetown/heels/greyscale
 	name = "heels"

@@ -427,6 +427,8 @@ There are several things that need to be remembered:
 			if(OFFSET_ID_F in dna.species.offset_features)
 				id_overlay.pixel_x += dna.species.offset_features[OFFSET_ID_F][1]
 				id_overlay.pixel_y += dna.species.offset_features[OFFSET_ID_F][2]
+		if(torso_offset)
+			id_overlay.pixel_y += torso_offset
 		overlays_standing[RING_LAYER] = id_overlay
 
 	apply_overlay(RING_LAYER)
@@ -679,10 +681,13 @@ There are several things that need to be remembered:
 		update_body_parts()
 		update_inv_gloves()
 		update_inv_wrists()
+		update_inv_wear_id()
 		update_inv_head()
 		update_inv_neck()
 		update_inv_back()
+		update_inv_belt()
 		update_inv_armor()
+		update_inv_cloak()
 		update_inv_neck()
 		update_inv_cloak()
 		update_inv_shirt()
@@ -816,6 +821,9 @@ There are several things that need to be remembered:
 									onbelt_overlay.pixel_y += H.dna.species.offset_features[OFFSET_BELT_F][2]
 									onbelt_behind.pixel_x += H.dna.species.offset_features[OFFSET_BELT_F][1]
 									onbelt_behind.pixel_y += H.dna.species.offset_features[OFFSET_BELT_F][2]
+					if(torso_offset)
+						onbelt_overlay.pixel_y += torso_offset
+						onbelt_behind.pixel_y += torso_offset
 					standing_front += onbelt_overlay
 					standing_behind += onbelt_behind
 			else
@@ -829,6 +837,8 @@ There are several things that need to be remembered:
 						if(OFFSET_BELT_F in dna.species.offset_features)
 							onbelt_overlay.pixel_x += dna.species.offset_features[OFFSET_BELT_F][1]
 							onbelt_overlay.pixel_y += dna.species.offset_features[OFFSET_BELT_F][2]
+					if(torso_offset)
+						onbelt_overlay.pixel_y += torso_offset
 				standing_front += onbelt_overlay
 
 	if(beltl)
@@ -877,6 +887,9 @@ There are several things that need to be remembered:
 									onbelt_overlay.pixel_y += H.dna.species.offset_features[OFFSET_BELT_F][2]
 									onbelt_behind.pixel_x += H.dna.species.offset_features[OFFSET_BELT_F][1]
 									onbelt_behind.pixel_y += H.dna.species.offset_features[OFFSET_BELT_F][2]
+							if(torso_offset)
+								onbelt_overlay.pixel_y += torso_offset
+								onbelt_behind.pixel_y += torso_offset
 					standing_front += onbelt_overlay
 					standing_behind += onbelt_behind
 			else
@@ -890,6 +903,8 @@ There are several things that need to be remembered:
 						if(OFFSET_BELT_F in dna.species.offset_features)
 							onbelt_overlay.pixel_x += dna.species.offset_features[OFFSET_BELT_F][1]
 							onbelt_overlay.pixel_y += dna.species.offset_features[OFFSET_BELT_F][2]
+					if(torso_offset)
+						onbelt_overlay.pixel_y += torso_offset
 				standing_front += onbelt_overlay
 
 	if(belt)
@@ -916,10 +931,8 @@ There are several things that need to be remembered:
 						if(OFFSET_BELT_F in dna.species.offset_features)
 							mbeltoverlay.pixel_x += dna.species.offset_features[OFFSET_BELT_F][1]
 							mbeltoverlay.pixel_y += dna.species.offset_features[OFFSET_BELT_F][2]
-				standing_front += mbeltoverlay
-
-	overlays_standing[BELT_LAYER] = standing_front
-	overlays_standing[BELT_BEHIND_LAYER] = standing_behind
+				if(torso_offset)
+					mbeltoverlay.pixel_y += torso_offset
 
 	rebuild_obscured_flags()
 	apply_overlay(BELT_LAYER)
@@ -1050,6 +1063,9 @@ There are several things that need to be remembered:
 									back_overlay.pixel_y += H.dna.species.offset_features[OFFSET_BACK_F][2]
 									behindback_overlay.pixel_x += H.dna.species.offset_features[OFFSET_BACK_F][1]
 									behindback_overlay.pixel_y += H.dna.species.offset_features[OFFSET_BACK_F][2]
+							if(torso_offset)
+								back_overlay.pixel_y += torso_offset
+								behindback_overlay.pixel_y += torso_offset
 					overcloaks += back_overlay
 					backbehind += behindback_overlay
 			else
@@ -1062,10 +1078,13 @@ There are several things that need to be remembered:
 					if(OFFSET_BACK_F in dna.species.offset_features)
 						back_overlay.pixel_x += dna.species.offset_features[OFFSET_BACK_F][1]
 						back_overlay.pixel_y += dna.species.offset_features[OFFSET_BACK_F][2]
+				if(torso_offset)
+					back_overlay.pixel_y += torso_offset
 				if(backr.alternate_worn_layer == UNDER_CLOAK_LAYER)
 					undercloaks += back_overlay
 				else
 					overcloaks += back_overlay
+
 
 	if(backl)
 		if(backl.alternate_worn_layer == CLOAK_BEHIND_LAYER)
@@ -1103,6 +1122,9 @@ There are several things that need to be remembered:
 									back_overlay.pixel_y += H.dna.species.offset_features[OFFSET_BACK_F][2]
 									behindback_overlay.pixel_x += H.dna.species.offset_features[OFFSET_BACK_F][1]
 									behindback_overlay.pixel_y += H.dna.species.offset_features[OFFSET_BACK_F][2]
+							if(torso_offset)
+								back_overlay.pixel_y += torso_offset
+								behindback_overlay.pixel_y += torso_offset
 					overcloaks += back_overlay
 					backbehind += behindback_overlay
 			else
@@ -1115,6 +1137,8 @@ There are several things that need to be remembered:
 					if(OFFSET_BACK_F in dna.species.offset_features)
 						back_overlay.pixel_x += dna.species.offset_features[OFFSET_BACK_F][1]
 						back_overlay.pixel_y += dna.species.offset_features[OFFSET_BACK_F][2]
+				if(torso_offset)
+					back_overlay.pixel_y += torso_offset
 				if(backl.alternate_worn_layer == UNDER_CLOAK_LAYER)
 					undercloaks += back_overlay
 				else
@@ -1200,6 +1224,8 @@ There are several things that need to be remembered:
 						if(OFFSET_SHIRT_F in dna.species.offset_features)
 							S.pixel_x += dna.species.offset_features[OFFSET_CLOAK_F][1]
 							S.pixel_y += dna.species.offset_features[OFFSET_CLOAK_F][2]
+					if(torso_offset)
+						S.pixel_y += torso_offset
 					cloaklays += S
 	if(backr && backr.alternate_worn_layer == CLOAK_BEHIND_LAYER)
 		update_hud_backr(backr)
@@ -1999,6 +2025,12 @@ generate/load female uniform sprites matching all previously decided variables
 					var/leg_lift = get_leg_lift()
 					if(leg_lift)
 						limb_overlay.pixel_y += leg_lift
+					// Make bottom pixels transparent (feet clipping into ground)
+					var/pixels_to_hide = round(get_body_height_offset())
+					if(pixels_to_hide > 0)
+						var/icon/temp_icon = icon(limb_overlay.icon, limb_overlay.icon_state)
+						temp_icon.DrawBox(null, 1, 1, 32, pixels_to_hide)
+						limb_overlay.icon = temp_icon
 				// Apply torso offset to upper body parts
 				else if(torso_offset && (BP.body_zone == BODY_ZONE_CHEST || BP.body_zone == BODY_ZONE_HEAD || BP.body_part == ARM_LEFT || BP.body_part == ARM_RIGHT))
 					limb_overlay.pixel_y += torso_offset

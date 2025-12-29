@@ -243,11 +243,6 @@
 							inhand_overlay.pixel_y += H.dna.species.offset_features[OFFSET_HANDS_F][2]
 							behindhand_overlay.pixel_x += H.dna.species.offset_features[OFFSET_HANDS_F][1]
 							behindhand_overlay.pixel_y += H.dna.species.offset_features[OFFSET_HANDS_F][2]
-				var/torso_offset = H.get_torso_offset()
-				if(torso_offset)
-					inhand_overlay.pixel_y += torso_offset
-					behindhand_overlay.pixel_y += torso_offset
-
 			hands += inhand_overlay
 			behindhands += behindhand_overlay
 		else
@@ -266,14 +261,22 @@
 						if(OFFSET_HANDS_F in H.dna.species.offset_features)
 							inhand_overlay.pixel_x += H.dna.species.offset_features[OFFSET_HANDS_F][1]
 							inhand_overlay.pixel_y += H.dna.species.offset_features[OFFSET_HANDS_F][2]
-				var/torso_offset = H.get_torso_offset()
-				if(torso_offset)
-					inhand_overlay.pixel_y += torso_offset
+			hands += inhand_overlay
+
+	update_inv_cloak() //cloak held items
 
 	overlays_standing[HANDS_BEHIND_LAYER] = behindhands
 	overlays_standing[HANDS_LAYER] = hands
 	apply_overlay(HANDS_BEHIND_LAYER)
 	apply_overlay(HANDS_LAYER)
+	
+	// Update cloak icons for inhand_mod cloaks (like raincloak)
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.cloak)
+			var/obj/item/clothing/cloak_item = H.cloak
+			if(cloak_item.inhand_mod)
+				H.update_inv_cloak()
 
 /mob/living/carbon/update_warning(datum/intent/I)
 	remove_overlay(HALO_LAYER) //yoink

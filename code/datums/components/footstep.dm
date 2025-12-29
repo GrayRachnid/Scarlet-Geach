@@ -11,6 +11,8 @@
 	///This can be a list OR a soundfile OR null. Determines whatever sound gets played.
 	var/footstep_sounds
 	var/last_sound
+	///If TRUE, humans will use GLOB.heelfootstep instead of GLOB.footstep
+	var/use_heel_sounds = FALSE
 
 /datum/component/footstep/Initialize(footstep_type_ = FOOTSTEP_MOB_BAREFOOT, volume_ = 0.5, e_range_ = -1)
 	if(!isliving(parent))
@@ -124,11 +126,13 @@ var/list/kick_verb
 	var/obj/item/clothing/shoes/humshoes = H.shoes
 
 	if((istype(humshoes) && !humshoes?.is_barefoot) && !islamia(H) || feetCover && !islamia(H)) //are we wearing shoes, and do they actually cover the sole
+		// Use heel sounds if flag is set, otherwise use normal footstep sounds
+		var/list/sound_list = use_heel_sounds ? GLOB.heelfootstep : GLOB.footstep
 		//SANITY CHECK, WILL NOT PLAY A SOUND IF THE LIST IS INVALID
-		if(!GLOB.footstep[T.footstep] || (LAZYLEN(GLOB.footstep[T.footstep]) < 3))
+		if(!sound_list[T.footstep] || (LAZYLEN(sound_list[T.footstep]) < 3))
 			testing("SOME silly guy GAVE AN INVALID FOOTSTEP VALUE ([T.footstep]) TO [T.type]!!! FIX THIS SHIT!!!")
 			return
-		used_footsteps = GLOB.footstep[T.footstep][1]
+		used_footsteps = sound_list[T.footstep][1]
 		used_footsteps = used_footsteps.Copy()
 		used_sound = pick_n_take(used_footsteps)
 		if(used_sound == last_sound)
@@ -138,9 +142,9 @@ var/list/kick_verb
 			used_sound = last_sound
 		last_sound = used_sound
 		playsound(T, used_sound,
-			GLOB.footstep[T.footstep][2],
+			sound_list[T.footstep][2],
 			FALSE,
-			GLOB.footstep[T.footstep][3] + e_range)
+			sound_list[T.footstep][3] + e_range)
 //	if(!islamia(H))
 	else
 		//SANITY CHECK, WILL NOT PLAY A SOUND IF THE LIST IS INVALID
