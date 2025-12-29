@@ -1423,6 +1423,7 @@ There are several things that need to be remembered:
 	update_hair()
 	update_inv_shirt() // fix boob
 
+	rebuild_obscured_flags()
 	apply_overlay(ARMOR_LAYER)
 	apply_overlay(ARMORSLEEVE_LAYER)
 
