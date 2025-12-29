@@ -933,7 +933,10 @@ There are several things that need to be remembered:
 							mbeltoverlay.pixel_y += dna.species.offset_features[OFFSET_BELT_F][2]
 				if(torso_offset)
 					mbeltoverlay.pixel_y += torso_offset
+				standing_front += mbeltoverlay
 
+	overlays_standing[BELT_LAYER] = standing_front
+	overlays_standing[BELT_BEHIND_LAYER] = standing_behind
 	rebuild_obscured_flags()
 	apply_overlay(BELT_LAYER)
 	apply_overlay(BELT_BEHIND_LAYER)
@@ -1348,6 +1351,7 @@ There are several things that need to be remembered:
 	update_hair()
 	// Note: wrists will update gloves in its own update
 
+	rebuild_obscured_flags()
 	apply_overlay(SHIRT_LAYER)
 	apply_overlay(SHIRTSLEEVE_LAYER)
 
